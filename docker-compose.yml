@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  backend:
+    build: ./backend
+    container_name: dtas-backend
+    volumes:
+      - ./backend/core/devices.db:/app/core/devices.db
+      - ./backend/config.d/config.yml:/app/config.d/config.yml
+      - ./backend/history.log:/app/history.log
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: dtas-frontend
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend/src/config.d/config.yaml:/usr/share/nginx/html/config/config.yaml
+
