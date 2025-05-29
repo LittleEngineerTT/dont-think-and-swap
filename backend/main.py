@@ -16,7 +16,8 @@ app = FastAPI(lifespan=lifespan)
 
 # Set CORS settings
 origins = [
-    "http://localhost:8080"
+    #"http://localhost:8080",
+    "localhost" # Dev mode only
 ]
 
 app.add_middleware(
