@@ -3,6 +3,10 @@ from typing import List, Optional
 
 from pydantic import BaseModel
 
+import requests
+
+config = get_config()
+
 class Movie(BaseModel):
     adult: bool = True
     backdrop_path: Optional[str] = None
@@ -25,3 +29,15 @@ class TMDBMovie(BaseModel):
     results: List[Movie] = None
     total_pages: int = 0
     total_results: int = 0
+
+    @classmethod
+    async def get_movie_genre(cls) -> Optional[Movie]:
+        url = f'{config["tmdb_api_url"]}genre/movie/list?language=en'
+
+        headers = {
+            "accept": "application/json",
+            "Authorization": f"Bearer {config['api_key']}"
+        }
+
+        response = requests.get(url, headers=headers)
+        return response.json()["genres"]

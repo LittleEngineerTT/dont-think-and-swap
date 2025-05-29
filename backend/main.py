@@ -1,4 +1,5 @@
 from contextlib import asynccontextmanager
+from routers.movie import movie as movie_router
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -13,6 +14,7 @@ async def lifespan(app: FastAPI):
 # Create FastAPI instance
 app = FastAPI(lifespan=lifespan)
 
+app.include_router(movie_router)
 
 # Set CORS settings
 origins = [
