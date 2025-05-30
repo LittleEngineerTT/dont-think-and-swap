@@ -18,7 +18,7 @@ logger = setup_logger("backend.log")
 @movie.get("/movie/genres",
           description="Get TMDB movie genres")
 async def get_movie_genre():
-    genres = await TMDBMovie.get_movie_genre()
-    logger.info(f"Movie genre: {genres}")
+    genres = await TMDBMovie.get_genres()
     genres_name = [genre["name"] for genre in genres]
+    logger.info(f"Movie genre: {genres_name}")
     return JSONResponse(genres_name)

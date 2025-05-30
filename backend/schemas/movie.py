@@ -31,7 +31,7 @@ class TMDBMovie(BaseModel):
     total_results: int = 0
 
     @classmethod
-    async def get_movie_genre(cls) -> Optional[Movie]:
+    async def get_genres(cls) -> Optional[Movie]:
         url = f'{config["tmdb_api_url"]}genre/movie/list?language=en'
 
         headers = {
