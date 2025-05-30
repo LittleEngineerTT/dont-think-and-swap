@@ -20,3 +20,4 @@ logger = setup_logger("backend.log")
 async def get_movie_genre():
     genres = await TMDBMovie.get_movie_genre()
     logger.info(f"Movie genre: {genres}")
+    return JSONResponse(genres)
