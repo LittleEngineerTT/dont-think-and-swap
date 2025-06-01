@@ -25,6 +25,9 @@ class Movie(BaseModel):
 
 
 class TMDBMovie(BaseModel):
+    """
+    Class that interacts with the TMDB API
+    """
     page: int = 0
     results: List[Movie] = None
     total_pages: int = 0

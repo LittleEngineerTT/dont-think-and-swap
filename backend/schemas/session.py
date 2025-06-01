@@ -19,7 +19,7 @@ class SessionManager:
         self.users[session_id] = {}
         self.users[session_id]["users"] = []
         self.users[session_id]["total_users"] = 0
-        return True
+        return session_id
     
     def remove_session(self, session_id):
         self.session_ids.remove(session_id)
