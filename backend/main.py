@@ -1,4 +1,5 @@
 from contextlib import asynccontextmanager
+from core.config import get_config
 from routers.movie import movie as movie_router
 from routers.user import user as user_router
 
@@ -7,6 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 import uvicorn
 
+config = get_config()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -38,4 +40,4 @@ def read_root():
 
 
 if __name__ == '__main__':
-    uvicorn.run("main:app", host='0.0.0.0', port=3000, workers=1)
+    uvicorn.run("main:app", host=config["api_host"], port=config["api_port"], workers=1)
