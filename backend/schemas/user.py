@@ -11,12 +11,17 @@ class User(BaseModel):
     name: str = ""
 
     @classmethod
-    def create_user(cls, index: int, session_id: str) -> Self:
+    def create_user(cls, index: int, session_id: str, user_id: str = "") -> Self:
         """
         Create a new user without name
         """
+
+        # Check user has a given ID
+        if user_id == "":
+            user_id = uuid4().hex
+
         user = User(**{
-            "id": uuid4().hex,
+            "id": user_id,
             "index": index,
             "session_id": session_id
         })
