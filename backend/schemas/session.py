@@ -26,14 +26,14 @@ class SessionManager:
         self.users.pop(session_id)
         return True
 
-    def add_participant(self, session_id, user: User):
+    def add_user(self, session_id, user: User):
         if session_id not in self.session_ids:
             return False
         self.users[session_id]["users"].append(user)
         self.users[session_id]["total_users"] += 1
         return True
 
-    def remove_participant(self, session_id: str, user: User):
+    def remove_user(self, session_id: str, user: User):
         self.users[session_id]["users"].remove(user)
         return True
 

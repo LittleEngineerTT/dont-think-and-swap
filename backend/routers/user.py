@@ -26,5 +26,9 @@ def register_user(body: RegisterUserBody):
     else:
         index = session_manager.users[session_id]["total_users"]
     new_user = User.create_user(index, session_id)
+
+    if not session_manager.add_user(session_id, new_user):
+        raise HTTPException(status_code=500, detail="Could not add user to the session")
+
     logger.info(f"User ID: {new_user.id}")
     return new_user
