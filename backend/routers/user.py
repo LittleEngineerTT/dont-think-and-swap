@@ -32,6 +32,9 @@ def register_user(body: RegisterUserBody):
     # Create user
     if body.user_id != "":
         # Invited user
+        # Check for duplicates
+        if any(existing_user.id == body.user_id for existing_user in session_manager.users[session_id]["users"]):
+            index -= 1
         new_user = User.create_user(index, session_id, body.user_id)
     else:
         new_user = User.create_user(index, session_id)
