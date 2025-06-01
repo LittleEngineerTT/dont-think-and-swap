@@ -31,3 +31,9 @@ class User(BaseModel):
 
 class RegisterUserBody(BaseModel):
     session_id: str = ""
+    user_id: str = ""
+
+class GetInvitationBody(BaseModel):
+    session_id: str
+    host: str
+    port: str
