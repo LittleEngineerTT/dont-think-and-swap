@@ -22,3 +22,7 @@ class User(BaseModel):
         })
 
         return user
+
+
+class RegisterUserBody(BaseModel):
+    session_id: str = ""
