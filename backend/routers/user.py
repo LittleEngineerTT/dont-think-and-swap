@@ -52,9 +52,8 @@ def register_user(body: RegisterUserBody):
 def get_invitation_link(body: GetInvitationBody):
     session_id = body.session_id
     host = body.host
-    port = body.port
     user_id = uuid4().hex
 
-    url_link = f"http://{host}:{port}/invitation/{session_id}/{user_id}"
+    url_link = f"http://{host}/invitation/{session_id}/{user_id}"
 
     return JSONResponse({"url": url_link})
