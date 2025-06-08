@@ -58,3 +58,13 @@ def get_invitation_link(body: GetInvitationBody):
     url_link = f"http://{host}:{port}/invitation/{session_id}/{user_id}"
 
     return JSONResponse({"url": url_link})
+
+
+@user.get("/users", description="Get all users of a given session\n"
+                                "- **session_id**: The ID of the user session")
+def get_connected_users(session_id: str):
+    return {
+        "users": session_manager.users[session_id]["users"],
+        "total_users": session_manager.users[session_id]["total_users"],
+        "connected_users": len(session_manager.users[session_id]["users"])
+    }
