@@ -1,51 +1,39 @@
-from models.user import user as userModel
-
-from ipaddress import IPv4Address, IPv6Address
 from typing import Self
+from uuid import uuid4
 
-from pydantic import BaseModel, field_validator, AfterValidator
-from re import match
-from wakeonlan import send_magic_packet
+from pydantic import BaseModel
 
 
 class User(BaseModel):
-    name: str
-    last_name: str
-    address: str
-
+    id: str
+    index: int
+    session_id: str
+    name: str = ""
 
     @classmethod
-    def get_users(cls) -> list[Self]:
+    def create_user(cls, index: int, session_id: str, user_id: str = "") -> Self:
         """
-        Get all users.
-        """
-        users = userModel.get_users()
-        for user in users:
-            user.mac = user.mac.lower()
-
-        return users
-
-
-    def register(self) -> int:
-        """
-        Register new user
-        :return: status code
+        Create a new user without name
         """
 
-        users = self.get_users()
+        # Check user has a given ID
+        if user_id == "":
+            user_id = uuid4().hex
 
-        # Check for duplicate
-        for user in users:
-            if user.name == self.name:
-                return 409
+        user = User(**{
+            "id": user_id,
+            "index": index,
+            "session_id": session_id
+        })
 
-        userModel.add_user(self.dict())
-        return 200
+        return user
 
 
-    def delete(self) -> None:
-        """
-        Delete user
-        :return: None
-        """
-        userModel.delete_user(self.dict())
+class RegisterUserBody(BaseModel):
+    session_id: str = ""
+    user_id: str = ""
+
+class GetInvitationBody(BaseModel):
+    session_id: str
+    host: str
+    port: str

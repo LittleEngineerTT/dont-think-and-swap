@@ -1,4 +1,3 @@
-from core.config import get_config
 from libs.logger import setup_logger
 from schemas.movie import TMDBMovie
 
