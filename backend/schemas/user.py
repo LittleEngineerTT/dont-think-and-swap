@@ -36,3 +36,4 @@ class RegisterUserBody(BaseModel):
 class GetInvitationBody(BaseModel):
     session_id: str
     host: str
+    port: str
